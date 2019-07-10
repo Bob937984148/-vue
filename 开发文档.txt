@@ -1,0 +1,223 @@
+                阴阳师藏宝阁开发文档
+
+
+文档结构
+porject--css--css文件            
+       --html--html文件
+       --img---式神录爬虫--徽章----图片
+                        --式神----图片
+                        --式神技能----图片
+                        --式神录----图片
+                        --式神皮肤----图片
+                        --头像框----图片
+                        --小图----图片
+                        --阴阳师皮肤----图片
+                        --阴阳术----图片
+                        --御魂----图片
+                        --御灵皮肤----图片
+                        --主页----图片
+
+                  
+
+数据库
+create table user（id int(4) primary key not null auto_increment）
+
+
+ 1.数据库名  yys
+              字段名     数据类型
+
+  *a.御魂表     yuhun
+    包含字段   id       int  主键 自增
+              name     varchar(60)  名字
+              src      varchar(200)  御魂图片路径
+              effect    varchar(200) 套装属性
+
+  create table yuhun(id int primary key auto_increment,
+                    name varchar(60),
+                    src  varchar(200),
+                    effect varchar(200)
+                      )character set utf8;
+  *b.式神表    ss
+    包含字段   id           int  主键 自增
+              name         varchar(60) 名字
+              src          varchar(200) 式神图片
+              slv          enum('sp','ssr','sr','r','n')  品级
+              src_skill1   varchar(200) 技能1图片
+              src_skill2   varchar(200) 技能2图片
+              src_skill3   varchar(200) 技能3图片
+
+  create table ss(id int primary key auto_increment,
+                    name varchar(60),
+                    src  varchar(200),
+                    slv  enum('sp','ssr','sr'),
+                    src_skill1   varchar(200),
+                    src_skill2   varchar(200),
+                    src_skill3   varchar(200)
+                    )charset utf8;
+  *c.皮肤表  pf
+    包含字段  id        int  主键 自增
+             ss_id     int  式神id(可重复)
+             src        varcahr(200)图片路径
+             pname     varchar(40)
+
+  create table pf(id int primary key auto_increment,
+                     ss_id int,
+                     src varchar(200),
+                     pname varchar(40)
+                     )character set utf8;
+  *d.用户表 user
+    包含字段  id        int  主键 自增
+             site      varchar(200) 所属平台及所在大区 
+             days      int   签到天数
+             lv        int  等级    
+             price     float  售价
+             isHave    enum('0','1') 是否持有永久勾玉卡
+             gold      float 金币
+             gouyu     int   勾玉
+             Vit       int   体力
+             hunyu     int   魂玉
+             sm_amulet  int  神秘符咒
+             xs_amulet  int  现世符咒
+             yuzha     int  御札
+             gold_yuzha int 金御札
+             bqds_lp   int  八岐大蛇鳞片
+             ds_lp     int  大蛇的逆鳞
+             fmzh      int  逢魔之魂
+             honor     int  荣誉
+             xunzhang  int  勋章
+             pfjuan    int  皮肤劵
+             yqdian    int  友情点
+             charm     int  魅力
+             yingbing  int  樱饼
+             bgyxmp    int 百鬼夜行门票
+             sstzj     int 式神挑战卷
+             cnzjuan   int 痴念之劵
+             douyu     int 斗鱼
+             taigu     int 太鼓
+             mmbing    int 绵绵冰
+             sansn     int 伞室内
+             tyfz      int 太阴符咒
+             ksw       int 口水蛙
+             name      varchar(40) 用户名
+             password  varchar(60) 用户密码
+
+create table user(id int primary key auto_increment,
+                    site      varchar(200),
+                     days      int,
+                     lv        int,    
+                     price     float,
+                     isHave    enum('0','1'),
+                     gold      float,
+                     gouyu     int,
+                     Vit       int,
+                     hunyu     int,
+                     sm_amulet  int,
+                     xs_amulet  int,
+                     yuzha     int,
+                     gold_yuzha int,
+                     bqds_lp   int,
+                     ds_lp     int,
+                     fmzh      int,
+                     honor     int,
+                     xunzhang  int,
+                     pfjuan    int,
+                     yqdian    int,
+                     charm     int,
+                     yingbing  int,
+                     bgyxmp    int,
+                     sstzj     int,
+                     cnzjuan   int,
+                     douyu     int,
+                     taigu     int,
+                     mmbing    int,
+                     sansn     int,
+                     tyfz      int,
+                     ksw       int,
+                     name      varchar(40),
+                     password  varchar(60)
+                     )character set UTF8;
+  *e.用户御魂 suer_yh
+    包含字段  id                 int  主键 自增
+             user_id            int  用户id
+             yuhun_id           int  御魂id
+             yh_is              enum('1','0')  是否装备
+             yh_site            int 御魂位置 (1-6)
+             yh_rank            int   等级
+             yh_slevel          int   星级  (1-6)
+             yh_main            varchar(20)  主要属性
+        0    yh_atk             int   攻击
+        1    yh_life            int   生命
+        2    yh_defense         int   防御
+        3    yh_atk_add         int   攻击加成(百分比)
+        4    yh_life_add        int   生命加成(百分比)
+        5    yh_defense_add     int   防御加成(百分比)
+        6    yh_speed           int   速度
+        7    yh_crit            int 暴击(百分比) 
+        8    yh_crit_hurt       int 爆伤(百分比)
+        9    yh_hit             int 命中(百分比)
+        10   yh_resist          int 抵抗(百分比)
+
+  create table user_yh(id int primary key auto_increment,
+                   user_id            int,
+                   yuhun_id           int,
+                   yh_is              enum('1','0'),
+                   yh_site            int,
+                   yh_rank            int,
+                   yh_slevel          int,
+                   yh_main            varchar(20),
+                   yh_atk             int,
+                   yh_life            int,
+                   yh_defense         int,
+                   yh_atk_add         int,
+                   yh_life_add        int,
+                   yh_defense_add     int,
+                   yh_speed           int,
+                   yh_crit            int, 
+                   yh_crit_hurt       int,
+                   yh_hit             int,
+                   yh_resist          int
+                   )character set utf8;
+
+  f.用户式神 user_ss
+    包含字段  id                 int  主键 自增
+             user_id            int  用户id
+             ss_id              int  式神id
+             ss_rank            int   等级
+             ss_slevel          int   星级  (3-6)
+             ss_atk             int   攻击   a=(120+Math.random()*31)   a+(a*(0.44+Math.random()*0.1))*ss_rank
+             ss_life            int   生命   b=864+Math.random()*363    b+(b*0.265)*ss_rank
+             ss_defense         int   防御   c=64+Math.random()*16     c+(c*suiji([0.11,0.12]))*ss_rank
+             ss_speed           int   速度   94+Math.random()*28 
+             ss_crit            int   暴击   5+Math.random()*5;
+             ss_crit_hurt       int 爆伤(百分比)  150
+             ss_skill1          int 技能1等级    suiji([1,2,3,4,5])
+             ss_skill2          int 技能2等级    suiji([1,2,3,4,5])
+             ss_skill3          int 技能3等级    suiji([1,2,3,4,5])
+             yh_id1             int 1号位御魂id  
+             yh_id2             int 2号位御魂id  
+             yh_id3             int 3号位御魂id  
+             yh_id4             int 4号位御魂id  
+             yh_id5             int 5号位御魂id  
+             yh_id6             int 6号位御魂id  
+
+  create table user_ss(id int primary key auto_increment,
+                   user_id            int,
+                   ss_id              int,
+                   ss_rank            int,
+                   ss_slevel          int,
+                   ss_atk             int,
+                   ss_life            int,
+                   ss_defense         int,
+                   ss_speed           int,
+                   ss_crit            int,
+                   ss_crit_hurt       int,
+                   ss_skill1          int,
+                   ss_skill2          int,
+                   ss_skill3          int,
+                   yh_id1             int,
+                   yh_id2             int,
+                   yh_id3             int,
+                   yh_id4             int,
+                   yh_id5             int,
+                   yh_id6             int
+                   )character set utf8;
